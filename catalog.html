@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LitvaShop — Beat Catalog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css?v=2.1">
+<script src="catalog.js?v=2.1" defer></script>
+</head>
+<body>
+
+<!-- Боковая панель -->
+<div class="side-panel" id="leftPanel">
+    <div class="panel-trigger" onclick="toggleSidebar()"></div>
+    <div class="panel-content">
+        <h2>APPROXIMATE PRICES:</h2>
+
+        <p>Non - profit use of the bit - FREE <br> You can use my beats for free, as long as you don't receive any royalties from it. <br> Therefore, sharing the tracks on soundcloud and youtube will be free. <br> Terms: <br>🔹 Be sure to include the author's name in the track title (prod. Litva_0) <br>🔹 The beats remain in the track <br> FOR PLATFORM RELEASE: <br> MP3 license - 1200₽ (15$) <br> WAV license - 2200₽ (25$) <br> TRACK OUT - 3800₽ (40$) <br> FULL RIGHTS/EXCL - from 5000₽ (70$+) <br>🔹When purchasing beats, please check the price. Prices may vary due to multiple producers on the beat</p>
+    </div>
+</div>
+
+<header>
+    <a href="index.html" class="logo">Litva</a>
+    <nav>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="catalog.html" class="nav-link">Catalog</a></li>
+        </ul>
+    </nav>
+    <button class="buy-btn" onclick="openModal()">Buy Beat</button>
+</header>
+
+<main>
+    <h1>Beat Catalog</h1>
+
+    <div class="filters-row">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by title or tags...">
+        <input type="number" id="bpmInput" class="filter-input" placeholder="BPM">
+        <input type="text" id="tagsInput" class="filter-input" placeholder="Tags (e.g. trap)">
+        <input type="text" id="keyInput" class="filter-input" placeholder="Key (e.g. Am)">
+    </div>
+
+     <div id="right-ad-container" class="right-ad-container">
+    <a href="#" id="right-ad-link" onclick="applySoloFilter(); return false;">
+        <img src="1.jpg" alt="Скидки на биты SOLO" class="right-ad-image" id="019fd868-600e-704c-94e8-3b246ae06155">
+        
+        <!-- Кнопка закрытия поверх изображения -->
+        <button id="ad-close-btn" class="ad-close-btn" aria-label="Закрыть рекламу">&times;</button>
+    </a>
+</div>
+</div>
+
+    <div class="catalog-grid" id="catalog-container">
+        <!-- Треки вставятся скриптом автоматически -->
+    </div>
+</main>
+
+
+<!-- Modal Window -->
+<div class="modal-overlay" id="buyModal">
+    <div class="modal">
+        <h2>How to Buy</h2>
+        <div class="contact-list">
+            <div class="contact-item"><span class="contact-icon">✉</span><span class="contact-text">Email: litva0777@gmail.com</span></div>
+            <div class="contact-item"><span class="contact-icon">💬</span><span class="contact-text"><a href="https://t.me/Litva_music" target="_blank" style="color:#fff;">Telegram: Litva_music</a></span></div>
+            <div class="contact-item"><span class="contact-icon">🗣</span><span class="contact-text"><a href="https://discord.gg/WUEt4TdTr" target="_blank" style="color:#fff;">Discord: WUEt4TdTr</a></span></div>
+            <div class="contact-item"><span class="contact-icon">📷</span><span class="contact-text"><a href="https://instagram.com/litva.0/" target="_blank" style="color:#fff;">Instagram: litva.0</a></span></div>
+        </div>
+        <button class="close-modal" id="closeModalBtn">Close</button>
+    </div>
+</div>
+
+<!-- Глобальный плеер -->
+<div id="global-player" class="global-player">
+    <div class="player-left">
+        <button id="prev-btn" class="prev-btn">⏮</button>
+        <button id="play-pause-btn" class="play-btn-big">▶</button>
+        <button id="next-btn" class="next-btn">⏭</button>
+    </div>
+
+    <!-- ИЗМЕНЕНО: Исправлен ID на player-artwork-img -->
+    <div class="track-artwork" id="artwork-wrapper">
+        <img id="player-artwork-img" alt="Cover">
+    </div>
+
+    <div class="player-center">
+        <div class="current-title" id="current-title">Nothing playing</div>
+        <!-- ИЗМЕНЕНО: Исправлен ID на current-author -->
+        <div class="current-author" id="current-author"></div>
+
+        <div class="progress-row">
+            <input type="range" id="global-progress" min="0" max="100" value="0" step="0.1">
+        </div>
+    </div>
+
+    <div class="player-right">
+        <span class="time-display" id="time-display">0:00 / 0:00</span>
+        <span id="volume-icon">🔊</span>
+        <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="0.8">
+    </div>
+
+    <audio id="global-audio"></audio>
+</div>
+
+<footer>
+    <div class="footer-top-border"></div>
+    <div class="footer-container">
+        <div class="footer-col-brand">
+            <div class="brand-logo">Litva</div>
+            <p style="color: #888; font-size: 12px; line-height: 1.6;">We create beats that become hits.<br>Your music is our passion.</p>
+            <div class="social-links">
+                <a href="https://discord.gg/WUEt4TdTr" class="social-btn">DS</a>
+                <a href="https://t.me/Litva_music" class="social-btn">TG</a>
+                <a href="https://instagram.com/litva.0/" class="social-btn">IG</a>
+                <a href="https://guns.lol/litva_0" class="social-btn">BIO</a>
+            </div>
+        </div>
+        <div class="footer-col-nav">
+            <h4>Navigation</h4>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+            </ul>
+        </div>
+        <div class="footer-col-contact">
+            <h4>Contacts</h4>
+            <ul class="nav-links">
+                <li>Khabarovsk, Russia</li>
+                <li>litva0777@gmail.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Sunkiong. All rights reserved.</span>
+        <span>Design and development: LitvaTeam</span>
+    </div>
+</footer>
+
+
+<script>
+
+    
+// === ОБЪЕКТ ПЛЕЕРА ВЫНЕСЕН В WINDOW ДЛЯ ДОСТУПА ИЗ HTML ===
+window.Player = {
+    beats: [],
+    currentIndex: null,
+    audioEl: document.getElementById('global-audio'),
+    playPauseBtn: document.getElementById('play-pause-btn'),
+    progressBar: document.getElementById('global-progress'),
+    timeDisplay: document.getElementById('time-display'),
+    
+    // ИСПРАВЛЕНО: Теперь ссылается на правильный ID из HTML
+    artworkImg: document.getElementById('player-artwork-img'), 
+    
+    prevBtn: document.getElementById('prev-btn'),
+    nextBtn: document.getElementById('next-btn'),
+    volumeIcon: document.getElementById('volume-icon'),
+    volumeBar: document.getElementById('volume-bar'),
+    currentTitle: document.getElementById('current-title'),
+    
+    // ИСПРАВЛЕНО: Теперь ссылается на существующий в HTML ID
+    currentAuthor: document.getElementById('current-author'), 
+
+    downloadTrack: function(url, filename) {
+    // Создаем временную ссылку
+    const a = document.createElement('a');
+    
+    // Устанавливаем путь к аудио-файлу
+    a.href = url;
+    
+    // Формируем имя файла (убираем лишние символы и заменяем пробелы на подчеркивания)
+    const cleanTitle = filename.replace(/[\\/:]/g, '').replace(/\s+/g, '_');
+    a.download = `${cleanTitle}.mp3`;
+    
+    // Эмуляция клика заставляет браузер начать загрузку
+    document.body.appendChild(a);
+    a.click();
+    
+    // Удаляем временный элемент из DOM
+    document.body.removeChild(a);
+},
+
+    init: function() {
+        this.bindControls();
+        this.loadCatalog();
+    },
+    
+    bindControls: function() {
+        if (this.playPauseBtn) this.playPauseBtn.addEventListener('click', () => this.togglePlayPause());
+        if (this.prevBtn) this.prevBtn.onclick = () => this.skipTrack(-1);
+        if (this.nextBtn) this.nextBtn.onclick = () => this.skipTrack(1);
+        if (this.progressBar) this.progressBar.addEventListener('input', e => this.seekAudio(e));
+        if (this.volumeBar) this.volumeBar.addEventListener('input', e => this.updateVolume(e));
+        if (this.audioEl) {
+            this.audioEl.addEventListener('ended', () => this.skipTrack(1));
+            this.audioEl.addEventListener('timeupdate', () => this.updateProgress());
+            this.audioEl.addEventListener('loadedmetadata', () => {
+                if (!isNaN(this.audioEl.duration)) {
+                    this.timeDisplay.textContent = `0:00 / ${this.formatTime(this.audioEl.duration)}`;
+                }
+            });
+        }
+        document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    },
+
+    loadCatalog: async function() {
+        try {
+            console.log("Попытка загрузки каталога...");
+            await new Promise(resolve => { if (typeof beatsData !== 'undefined') resolve(); else setTimeout(resolve, 100); });
+            
+            this.beats = Array.isArray(beatsData) ? beatsData.filter(t => t.title && t.audioUrl) : [];
+            console.log("Загружено валидных треков:", this.beats.length);
+            this.renderCatalog(this.beats);
+            this.setupFilters(this.beats);
+        } catch (err) {
+            console.error("[FATAL] Failed to load catalog:", err.message);
+            const container = document.getElementById('catalog-container');
+            if (container) {
+                container.innerHTML = `<div style="color:#d00; text-align:center; padding:40px;">
+                    <h3>Ошибка загрузки каталога</h3>
+                    <small>Техническая ошибка: ${err.message}</small>
+                </div>`;
+            }
+        }
+    },
+
+    renderCatalog: function(beats) {
+        const container = document.getElementById('catalog-container');
+        if (!container) return;
+        container.innerHTML = '';
+        if (beats.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#666;">No valid beats found in database.</p>';
+            return;
+        }
+        beats.forEach((beat, index) => {
+            const card = document.createElement('article');
+            card.className = 'beat-card';
+            card.dataset.index = index;
+            const authorText = beat.author || 'Unknown';
+            
+            let coverSrc = 'placeholder.jpg'; 
+            if (beat.coverUrl && typeof beat.coverUrl === 'string') {
+                coverSrc = beat.coverUrl.startsWith('http') ? beat.coverUrl : beat.coverUrl;
+            }
+            
+            let tagsHtml = '';
+            if (Array.isArray(beat.tags)) {
+                tagsHtml = beat.tags.map(tag => `<span class="tag-badge">${tag}</span>`).join('');
+            }
+            
+            card.innerHTML = `
+    <div class="beat-cover">
+        <img src="${coverSrc}" alt="${beat.title}" class="beat-cover-img" onerror="this.onerror=null; this.src='favicon.jpg';">
+    </div>
+    <h3 class="beat-title">${beat.title}</h3>
+    <div class="beat-author">${authorText}</div>
+    
+    <!-- Мета-данные (BPM, Key, Genre) -->
+    <div class="beat-meta"><span>BPM: ${beat.bpm} • Key: ${beat.key || '—'} • Genre: ${beat.genre || '—'}</span></div>
+    
+    <!-- Теги -->
+    <div class="beat-tags">${tagsHtml}</div>
+    
+    <!-- Цена и кнопки -->
+    <div class="beat-price-row">
+        <span class="beat-price">$${(beat.price || 0).toFixed(2)}</span>
+        <button class="buy-now-btn" onclick="openModal()">Buy Now</button>
+    </div>
+    
+    <!-- Кнопка скачивания НОВИНКА -->
+    <button class="preview-btn" onclick="Player.downloadTrack('${beat.audioUrl}', '${beat.title}')">⬇ Download</button>
+    
+    <button class="preview-btn" onclick="Player.selectTrack(${index})">Preview ▶</button>
+`;
+            container.appendChild(card);
+        });
+    },
+
+   setupFilters: function(allBeats) {
+    const searchInput = document.getElementById('searchInput');
+    const bpmInput = document.getElementById('bpmInput');
+    const tagsInput = document.getElementById('tagsInput');
+    const keyInput = document.getElementById('keyInput'); // Новое поле
+
+    const applyFilters = () => {
+        const query = (searchInput?.value || '').toLowerCase().trim();
+        const bpmValue = parseFloat(bpmInput?.value || '');
+        const tagsQuery = (tagsInput?.value || '').toLowerCase().trim();
+        const keyQuery = (keyInput?.value || '').toLowerCase().trim(); // Значение ноты
+
+        const filtered = allBeats.filter(beat => {
+            const matchesTitle = beat.title.toLowerCase().includes(query);
+            const matchesTags = beat.tags.some(tag => tag.toLowerCase().includes(query));
+            const matchesBpm = isNaN(bpmValue) || beat.bpm === bpmValue;
+            const matchesTagsInput = tagsQuery === '' || beat.tags.some(tag => tag.toLowerCase().includes(tagsQuery));
+            
+            // Новая проверка: если поле заполнено, ищем точное совпадение или включение строки
+            const matchesKey = keyQuery === '' || 
+                              (beat.key && beat.key.toLowerCase().includes(keyQuery));
+
+            return (matchesTitle || matchesTags) && matchesBpm && matchesTagsInput && matchesKey;
+        });
+        this.renderCatalog(filtered);
+    };
+
+    [searchInput, bpmInput, tagsInput, keyInput].forEach(el => el?.addEventListener('input', applyFilters));
+},
+
+    selectTrack: function(index) {
+        const track = this.beats[index];
+        if (!track) return;
+        this.currentIndex = index;
+        this.audioEl.src = track.audioUrl;
+        this.updateTrackInfo(track);
+        if (this.audioEl.readyState >= 4) {
+            this.togglePlayPause();
+        } else {
+            this.audioEl.load();
+            this.audioEl.play().catch(()=>{});
+            this.updatePlayButton(true);
+        }
+    },
+    
+    updateTrackInfo: function(track) {
+        if (!this.currentTitle || !this.currentAuthor || !this.artworkImg) return;
+        this.currentTitle.textContent = track.title;
+        this.currentAuthor.textContent = track.author || 'Unknown';
+        // Устанавливаем картинку плеера, используя ту же логику заглушки
+        this.artworkImg.src = track.coverUrl || 'placeholder.jpg';
+    },
+    
+    togglePlayPause: function() {
+        if (this.audioEl.paused) { 
+            this.audioEl.play().catch(()=>{}); 
+            this.updatePlayButton(true); 
+        } else { 
+            this.audioEl.pause(); 
+            this.updatePlayButton(false); 
+        }
+    },
+    
+    updatePlayButton: function(isPlaying) {
+        if (this.playPauseBtn) { 
+            this.playPauseBtn.textContent = isPlaying ? '⏸' : '▶'; 
+            this.playPauseBtn.classList.toggle('playing', isPlaying); 
+        }
+    },
+    
+    updateProgress: function() {
+    if (!isNaN(this.audioEl.duration)) {
+        const percent = (this.audioEl.currentTime / this.audioEl.duration) * 100;
+        this.progressBar.value = percent;
+        
+        // Устанавливаем переменную для заполнения фона в WebKit
+        this.progressBar.style.setProperty('--fill-percent', `${percent}%`);
+        
+        this.timeDisplay.textContent = this.formatTime(this.audioEl.currentTime) + ' / ' + this.formatTime(this.audioEl.duration);
+    }
+},
+    
+    seekAudio: function(e) {
+        if (!isNaN(this.audioEl.duration)) this.audioEl.currentTime = (e.target.value / 100) * this.audioEl.duration;
+    },
+    
+    updateVolume: function(e) {
+        const vol = parseFloat(e.target.value); 
+        this.audioEl.volume = vol; 
+        this.updateVolumeIcon(vol);
+    },
+    
+    updateVolumeIcon: function(volume) {
+    if (volume >= 0.5) this.volumeIcon.textContent = '🔊';
+    else if (volume > 0) this.volumeIcon.textContent = '🔉';
+    else this.volumeIcon.textContent = '🔇';
+    
+    // Передаем значение процента громкости в CSS-переменную для WebKit-градиента
+    const percent = volume * 100;
+    this.volumeBar.style.setProperty('--vol-fill-percent', `${percent}%`);
+},
+    
+    skipTrack: function(direction) {
+        if (this.beats.length === 0) return;
+        if (this.currentIndex === null) { 
+            this.selectTrack(0); 
+            return; 
+        }
+        let newIndex = this.currentIndex + direction;
+        if (newIndex >= this.beats.length) newIndex = 0;
+        if (newIndex < 0) newIndex = this.beats.length - 1;
+        this.selectTrack(newIndex);
+    },
+    
+    formatTime: function(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    Player.init();
+});
+
+function openModal() { 
+    document.getElementById('buyModal').classList.add('active'); 
+}
+function closeModal() { 
+    document.getElementById('buyModal').classList.remove('active'); 
+}
+
+function toggleSidebar() {
+    const panel = document.getElementById('leftPanel');
+    if (panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        document.body.classList.remove('with-sidebar');
+    } else {
+        // Если панель закрыта — открываем её
+        panel.classList.add('open');
+        document.body.classList.add('with-sidebar');
+    }
+}
+// Функция фильтрации (остается без изменений)
+function applySoloFilter() {
+    const tagsInput = document.getElementById('tagsInput');
+    if (!tagsInput) return;
+    tagsInput.value = 'solo';
+    const event = new Event('input', { bubbles: true });
+    tagsInput.dispatchEvent(event);
+    const catalogContainer = document.getElementById('catalog-container');
+    if (catalogContainer) {
+        catalogContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Логика правого рекламного баннера
+document.addEventListener('DOMContentLoaded', function() {
+    const adContainer = document.getElementById('right-ad-container');
+    const adCloseBtn = document.getElementById('ad-close-btn');
+
+    if (!adContainer || !adCloseBtn) return;
+
+    // --- КНОПКА ЗАКРЫТИЯ ---
+    adCloseBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        // Добавляем класс анимации задвигания
+        adContainer.classList.remove('open'); 
+        
+        // Ждем завершения анимации (450мс) и прячем блок
+        setTimeout(() => {
+            adContainer.style.display = 'none';
+            adContainer.dataset.state = 'hidden'; // Помечаем сам DOM-элемент
+        }, 450);
+        
+        localStorage.setItem('rightAdHidden', 'true');
+    });
+
+    // --- ЛОГИКА ПОЯВЛЕНИЯ ПРИ ОБНОВЛЕНИИ ---
+    const isPermanentlyHidden = localStorage.getItem('rightAdHidden') === 'true';
+    
+    // Проверяем два условия:
+    // 1. Пользователь НЕ нажимал крестик ранее (в LocalStorage пусто)
+    // 2. И текущее отображение элемента сейчас "none" (защита от дублей)
+    if (adContainer.style.display !== 'block') {
+        
+        // Сначала делаем элемент видимым в потоке документа
+        adContainer.style.display = 'block';
+        
+        // Небольшая задержка нужна ТОЛЬКО ДЛЯ ПЕРВОЙ ЗАГРУЗКИ,
+        // чтобы браузер успел применить display: block перед началом анимации
+        setTimeout(function() {
+            requestAnimationFrame(function() {
+                adContainer.classList.add('open');
+                
+                // Чистим кастомную метку, если она была
+                delete adContainer.dataset.state; 
+            });
+        }, 50); 
+    }
+});
+</script>
+
+<script src="catalog.js" defer></script> 
+
+</body>
+</html>

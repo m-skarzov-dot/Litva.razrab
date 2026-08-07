@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Litva | Beat Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">Litva</a>
+    <nav>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="catalog.html" class="nav-link">Catalog</a></li>
+        </ul>
+    </nav>
+    <button class="buy-btn" onclick="openModal()">Buy Beat</button>
+</header>
+
+<main>
+    <!-- Hero-секция -->
+    <section class="hero">
+        <h1>Your Sound<br>Your Energy</h1>
+        <p>The best beats for your tracks. Exclusive rights, high quality, and instant delivery.</p>
+        <a href="catalog.html" class="buy-btn hero-btn">Go to Catalog</a>
+    </section>
+
+    <div class="hero-banner-right" >
+     <a href="https://www.youtube.com/watch?v=VRxa4Ko7sW0" target="_blank">
+    <img src="2.jpg" alt="2.jpg" class="banner-img" border="0">
+     </a>
+    </div>
+
+
+    <!-- Секция преимуществ -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🎵</div>
+            <h3 class="feature-title">Exclusivity</h3>
+            <p class="feature-desc">Each beat is sold only once. Your track will be unique.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💾</div>
+            <h3 class="feature-title">Instant Delivery</h3>
+            <p class="feature-desc">After payment, you instantly receive an archive with the track and all stems.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎛️</div>
+            <h3 class="feature-title">High Quality</h3>
+            <p class="feature-desc">All beats are recorded in 24-bit / 44.1 kHz for maximum detail.</p>
+        </div>
+    </section>
+</main>
+
+<!-- Modal Window -->
+<div class="modal-overlay" id="buyModal">
+<div class="modal">
+<h2>How to Buy</h2>
+<div class="contact-list">
+<div class="contact-item"><span class="contact-icon">✉</span><span class="contact-text">Email: litva0777@gmail.com</span></div>
+<div class="contact-item"><span class="contact-icon">💬</span><span class="contact-text"><a href="https://t.me/Litva_music" target="_blank" style="color:#fff;">Telegram: Litva_music</a></span></div>
+<div class="contact-item"><span class="contact-icon">🗣</span><span class="contact-text"><a href="https://discord.gg/WUEt4TdTr" target="_blank" style="color:#fff;">Discord: WUEt4TdTr</a></span></div>
+<div class="contact-item"><span class="contact-icon">📷</span><span class="contact-text"><a href="https://instagram.com/litva.0/" target="_blank" style="color:#fff;">Instagram: litva.0</a></span></div>
+</div>
+<button class="close-modal" id="closeModalBtn">Close</button>
+</div>
+</div>
+
+
+<footer>
+    <div class="footer-top-border"></div>
+    <div class="footer-container">
+        <div class="footer-col-brand">
+            <div class="brand-logo">Litva</div>
+            <p style="color: #888; font-size: 12px; line-height: 1.6;">
+                We create beats that become hits.<br>
+                Your music is our passion.
+            </p>
+            <div class="social-links">
+                <a href="https://discord.gg/WUEt4TdTr" class="social-btn">DS</a>
+                <a href="https://t.me/Litva_music" class="social-btn">TG</a>
+                <a href="https://instagram.com/litva.0/" class="social-btn">IG</a>
+                <a href="https://guns.lol/litva_0" class="social-btn">BIO</a>
+            </div>
+        </div>
+        <div class="footer-col-nav">
+            <h4>Navigation</h4>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+            </ul>
+        </div>
+        <div class="footer-col-contact">
+            <h4>Contacts</h4>
+            <ul class="nav-links">
+                <li>Khabarovsk, Russia</li>
+                <li>litva0777@gmail.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Sunkiong. All rights reserved.</span>
+        <span>Design and development: LitvaTeam</span>
+    </div>
+</footer>
+<script src="catalog.js" defer></script>
+<script>
+// Функции модального окна
+function openModal() { document.getElementById('buyModal').classList.add('active'); }
+function closeModal() { 
+    document.getElementById('buyModal').classList.remove('active');
+}
+document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+
+// Управление боковой панелью
+function toggleSidebar() {
+    const panel = document.getElementById('leftPanel');
+    if (panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        document.body.classList.remove('with-sidebar');
+    } else {
+        panel.classList.add('open');
+        document.body.classList.add('with-sidebar');
+    }
+};
+</script>
+</body>
+</html>
